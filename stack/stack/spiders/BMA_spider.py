@@ -15,14 +15,6 @@ class BMASpider(scrapy.Spider):
     ]
 
     COMMUNICATES_XPATH = "/html/body/div[2]/section/div[1]/div/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div/div"
-    ARTICLE_FULLTEXT_XPATH = "/html/body/div[2]/section/div[1]/div/div[2]/div/div[1]/div/div/div/div[2]/div/div/div/article/div[2]"
-
-    # rules = (
-    #     scrapy.spiders.Rule(
-    #         scrapy.linkextractors.LinkExtractor(),
-    #         callback = 'parse'
-    #     ),
-    # )
 
     def parse(self, response: scrapy.http.Response):
         # communicates = scrapy.Selector(response).xpath(BMASpider.COMMUNICATES_XPATH).getall()
