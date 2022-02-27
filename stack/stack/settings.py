@@ -62,9 +62,13 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'stack.pipelines.StackPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'stack.pipelines.MongoPipeline': 300,
+}
+MONGO_URI = "localhost"
+MONGO_DATABASE = "scrape"
+MONGO_USERNAME = "root"
+MONGO_PASSWORD = "example"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
