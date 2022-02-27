@@ -13,16 +13,16 @@ class BMASpider(scrapy.Spider):
         "http://bma.gov.md/ro",
     ]
 
-    COMMUNICATES_XPATH = "/html/body/div[2]/section/div[1]/div/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div"
+    COMMUNICATES_XPATH = "/html/body/div[2]/section/div[1]/div/div/div/div[1]/div/div/div/div/div/div[3]/div/div/div/div/div[1]/div/div"
 
     def parse(self, response: scrapy.http.Response):
-        communicates = scrapy.Selector(response).xpath(BMASpider.COMMUNICATES_XPATH)
-        
+        # communicates = scrapy.Selector(response).xpath(BMASpider.COMMUNICATES_XPATH).getall()
+        communicates = response.xpath(BMASpider.COMMUNICATES_XPATH)
         for communicate in communicates:
             article = ArticleItem()
-            article['title'] = communicate.xpath('h4/a/text()').extract()
-            article['url'] = communicate.xpath('h4/a/@href').extract()[0]
-            # article['date'] = communicate.xpath('div[3]/div/text()').extract()[0]
-            # article['text'] = communicate.xpath('div[3]/div/text()').extract()[0]
+            article['title'] = communicate.xpath('h4//a/text()').get()
+            article['url'] = response.urljoin(communicate.xpath('h4//a/@href').get())
+            article['date'] = communicate.xpath('div[1]/div/text()').get().split(" | ")[0]
+            article['text_view'] = communicate.xpath('div[3]/div/text()').get()
             yield article
             
