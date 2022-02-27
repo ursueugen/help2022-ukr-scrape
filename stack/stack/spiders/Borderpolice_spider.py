@@ -14,7 +14,13 @@ class BorderPoliceSpider(scrapy.Spider):
     ]
     
     def parse(self, response):
-        raise NotImplementedError
+        
+        urls = response.xpath(
+            "//div[@class='view-content row']//article//a/@href"
+        ).getall()
+
+        # for url in urls:
+
     
     def parse_article(self, response, article: ArticleItem):
         raise NotImplementedError
